@@ -19,7 +19,7 @@ export function Sheet({
         <Drawer.Overlay className="fixed inset-0 z-50 bg-bg/70" />
         <Drawer.Content
           className={cn(
-            "fixed inset-x-0 bottom-0 z-50 mx-auto flex max-h-[80dvh] w-full max-w-phone flex-col rounded-t-2xl bg-surface pb-[env(safe-area-inset-bottom)] shadow-[var(--shadow-border)] outline-none",
+            "fixed inset-x-0 bottom-0 z-50 mx-auto flex max-h-[80dvh] w-full max-w-md flex-col rounded-t-2xl bg-surface pb-[env(safe-area-inset-bottom)] shadow-[var(--shadow-border)] outline-none sm:bottom-6 sm:rounded-2xl",
           )}
         >
           <div className="mx-auto mt-3 h-1 w-10 rounded-full bg-border" />

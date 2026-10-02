@@ -45,9 +45,9 @@ function GigDetail() {
   }
 
   return (
-    <div className="mx-auto flex max-w-3xl flex-col gap-6">
-      <div className="overflow-hidden rounded-2xl">
-        <div className="relative aspect-video">
+    <div className="flex flex-col gap-8 md:flex-row md:items-start md:gap-12">
+      <div className="overflow-hidden rounded-2xl md:sticky md:top-10 md:w-[22rem] md:shrink-0 lg:w-[26rem]">
+        <div className="relative aspect-video md:aspect-square">
           <Portrait src={room.cover} alt="" priority />
           <div className="absolute left-3 top-3">
             <Badge tone="accent">{cat.label}</Badge>
@@ -55,54 +55,62 @@ function GigDetail() {
         </div>
       </div>
 
-      <div>
-        <p className="text-sm text-muted">{room.company}</p>
-        <h1 className="font-display mt-1 text-3xl tracking-tight">{room.title}</h1>
-        <p className="mt-2 inline-flex items-center gap-1.5 text-sm text-muted">
-          <MapPin className="size-3.5" strokeWidth={1.7} />
-          {room.city} · {room.locationType}
-        </p>
-      </div>
-
-      <dl className="grid grid-cols-3 gap-2 rounded-xl bg-surface p-4 shadow-[var(--shadow-border)]">
+      <div className="flex min-w-0 flex-1 flex-col gap-6">
         <div>
-          <dt className="text-xs tracking-wide text-muted">Pay</dt>
-          <dd className="mt-1 text-sm font-medium">{room.rate}</dd>
+          <p className="text-sm text-muted">{room.company}</p>
+          <h1 className="font-display mt-1 text-3xl tracking-tight md:text-5xl">
+            {room.title}
+          </h1>
+          <p className="mt-2 inline-flex items-center gap-1.5 text-sm text-muted">
+            <MapPin className="size-3.5" strokeWidth={1.7} />
+            {room.city} · {room.locationType}
+          </p>
         </div>
-        <div>
-          <dt className="text-xs tracking-wide text-muted">Posted</dt>
-          <dd className="mt-1 text-sm font-medium">{room.posted}</dd>
+
+        <dl className="grid grid-cols-3 gap-2 rounded-xl bg-surface p-4 shadow-[var(--shadow-border)] sm:max-w-md">
+          <div>
+            <dt className="text-xs tracking-wide text-muted">Pay</dt>
+            <dd className="mt-1 text-sm font-medium">{room.rate}</dd>
+          </div>
+          <div>
+            <dt className="text-xs tracking-wide text-muted">Posted</dt>
+            <dd className="mt-1 text-sm font-medium">{room.posted}</dd>
+          </div>
+          <div>
+            <dt className="text-xs tracking-wide text-muted">Closes</dt>
+            <dd className="mt-1 text-sm font-medium">{room.deadline}</dd>
+          </div>
+        </dl>
+
+        <p className="max-w-2xl leading-relaxed text-fg/90">{room.description}</p>
+
+        <section>
+          <h2 className="font-display text-xl tracking-tight">What they need</h2>
+          <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+            {room.requirements.map((r) => (
+              <li
+                key={r}
+                className="rounded-lg bg-surface px-3.5 py-3 text-sm leading-relaxed shadow-[var(--shadow-border)]"
+              >
+                {r}
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <div className="sticky bottom-0 z-20 flex gap-2 bg-bg/90 py-3 backdrop-blur-sm sm:static sm:bg-transparent sm:py-0 sm:backdrop-blur-none">
+          <Button variant="outline" onClick={() => toggle(room.id)} className="flex-1 sm:flex-none sm:px-6">
+            <Bookmark className={cn("size-4", saved && "fill-fg")} />
+            {saved ? "Saved" : "Save"}
+          </Button>
+          <Button
+            onClick={() => (applied ? null : setOpen(true))}
+            disabled={applied}
+            className="flex-1 sm:flex-none sm:px-6"
+          >
+            {applied ? "Applied" : "Apply"}
+          </Button>
         </div>
-        <div>
-          <dt className="text-xs tracking-wide text-muted">Closes</dt>
-          <dd className="mt-1 text-sm font-medium">{room.deadline}</dd>
-        </div>
-      </dl>
-
-      <p className="leading-relaxed text-fg/90">{room.description}</p>
-
-      <section>
-        <h2 className="font-display text-xl tracking-tight">What they need</h2>
-        <ul className="mt-3 flex flex-col gap-2">
-          {room.requirements.map((r) => (
-            <li
-              key={r}
-              className="rounded-lg bg-surface px-3.5 py-3 text-sm leading-relaxed shadow-[var(--shadow-border)]"
-            >
-              {r}
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <div className="sticky bottom-0 z-20 grid grid-cols-2 gap-2 bg-bg/90 py-3 backdrop-blur-sm">
-        <Button variant="outline" onClick={() => toggle(room.id)}>
-          <Bookmark className={cn("size-4", saved && "fill-fg")} />
-          {saved ? "Saved" : "Save"}
-        </Button>
-        <Button onClick={() => (applied ? null : setOpen(true))} disabled={applied}>
-          {applied ? "Applied" : "Apply"}
-        </Button>
       </div>
 
       <Sheet open={open} onOpenChange={setOpen} title="Apply">

@@ -5,11 +5,13 @@ export function Portrait({
   alt,
   className,
   priority = false,
+  position = "top",
 }: {
   src: string;
   alt: string;
   className?: string;
   priority?: boolean;
+  position?: "top" | "center";
 }) {
   return (
     <img
@@ -17,7 +19,11 @@ export function Portrait({
       alt={alt}
       loading={priority ? "eager" : "lazy"}
       decoding="async"
-      className={cn("h-full w-full object-cover object-top", className)}
+      className={cn(
+        "h-full w-full object-cover",
+        position === "top" ? "object-top" : "object-center",
+        className,
+      )}
     />
   );
 }

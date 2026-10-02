@@ -3,14 +3,18 @@ import { MapPin } from "lucide-react";
 import { Portrait } from "@/components/portrait";
 import { Badge } from "@/components/ui/badge";
 import { categoryOf, type Gig } from "@/data/catalog";
+import { cn } from "@/lib/utils";
 
-export function GigCard({ gig }: { gig: Gig }) {
+export function GigCard({ gig, fluid = false }: { gig: Gig; fluid?: boolean }) {
   const cat = categoryOf(gig.category);
   return (
     <Link
       to="/gigs/$id"
       params={{ id: gig.id }}
-      className="flex w-64 shrink-0 snap-start flex-col overflow-hidden rounded-xl bg-surface shadow-[var(--shadow-border)] transition-[box-shadow] duration-200 ease-out hover:shadow-[var(--shadow-border-hover)]"
+      className={cn(
+        "flex shrink-0 snap-start flex-col overflow-hidden rounded-xl bg-surface shadow-[var(--shadow-border)] transition-[box-shadow] duration-200 ease-out hover:shadow-[var(--shadow-border-hover)]",
+        fluid ? "w-64 sm:w-full" : "w-64",
+      )}
     >
       <div className="relative aspect-16/10 overflow-hidden">
         <Portrait src={gig.cover} alt="" />

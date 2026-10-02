@@ -53,133 +53,137 @@ function TalentProfile() {
   }
 
   return (
-    <div className="mx-auto flex max-w-3xl flex-col gap-8">
-      <div className="overflow-hidden rounded-2xl">
+    <div className="flex flex-col gap-8 md:flex-row md:items-start md:gap-12">
+      <div className="overflow-hidden rounded-2xl md:sticky md:top-10 md:w-[22rem] md:shrink-0 lg:w-[26rem]">
         <div className="relative aspect-3/4">
           <Portrait src={person.photo} alt={person.name} priority />
-          <div className="absolute inset-x-0 bottom-0 h-1/3 bg-linear-to-t from-bg to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-1/3 bg-linear-to-t from-bg to-transparent md:hidden" />
         </div>
       </div>
 
-      <div>
-        <div className="flex items-start justify-between gap-3">
-          <div>
-            <Badge>{cat.label}</Badge>
-            <h1 className="font-display mt-2 text-3xl tracking-tight">
-              {person.name}
-            </h1>
-            <p className="mt-1 text-muted">
-              {person.role} · @{person.handle}
-            </p>
-          </div>
-          {person.available ? (
-            <Badge tone="live">Open</Badge>
-          ) : (
-            <Badge>Booked</Badge>
-          )}
-        </div>
-
-        <p className="mt-3 inline-flex items-center gap-1.5 text-sm text-muted">
-          <MapPin className="size-3.5" strokeWidth={1.7} />
-          {person.city}, {person.country}
-        </p>
-
-        <div className="mt-5 grid grid-cols-2 gap-2">
-          <Button
-            variant="outline"
-            onClick={() => toggle(person.id)}
-            className="w-full"
-          >
-            <Bookmark className={cn("size-4", saved && "fill-fg")} />
-            {saved ? "Saved" : "Save"}
-          </Button>
-          <Button
-            className="w-full"
-            onClick={() => setOpen(true)}
-            disabled={!person.available}
-          >
-            {briefed ? "Send another brief" : "Hire"}
-          </Button>
-        </div>
-      </div>
-
-      <p className="text-base leading-relaxed text-fg/90">{person.bio}</p>
-
-      <dl className="grid grid-cols-3 gap-2 rounded-xl bg-surface p-4 shadow-[var(--shadow-border)]">
+      <div className="flex min-w-0 flex-1 flex-col gap-8">
         <div>
-          <dt className="text-xs tracking-wide text-muted">Rate</dt>
-          <dd className="mt-1 text-sm font-medium">{person.rate}</dd>
-        </div>
-        <div>
-          <dt className="text-xs tracking-wide text-muted">Years</dt>
-          <dd className="mt-1 text-sm font-medium tabular-nums">{person.years}</dd>
-        </div>
-        <div>
-          <dt className="text-xs tracking-wide text-muted">Rating</dt>
-          <dd className="mt-1 text-sm font-medium tabular-nums">
-            {person.rating} · {person.reviewCount}
-          </dd>
-        </div>
-      </dl>
-
-      <section>
-        <h2 className="font-display text-xl tracking-tight">Skills</h2>
-        <div className="mt-3 flex flex-wrap gap-2">
-          {person.skills.map((s) => (
-            <Badge key={s}>{s}</Badge>
-          ))}
-        </div>
-        <p className="mt-3 text-sm text-muted">
-          Languages: {person.languages.join(", ")}
-        </p>
-        <p className="mt-1 text-sm text-muted">Looking for: {person.lookingFor}</p>
-      </section>
-
-      <section>
-        <h2 className="font-display text-xl tracking-tight">Selected work</h2>
-        <ul className="mt-3 divide-y divide-border">
-          {person.credits.map((c) => (
-            <li
-              key={c.title}
-              className="flex items-baseline justify-between gap-4 py-3"
-            >
-              <div>
-                <p className="font-medium">{c.title}</p>
-                <p className="text-sm text-muted">{c.note}</p>
-              </div>
-              <span className="text-sm tabular-nums text-subtle">{c.year}</span>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section>
-        <h2 className="font-display text-xl tracking-tight">Notes from rooms</h2>
-        <ul className="mt-3 flex flex-col gap-3">
-          {person.reviews.map((r) => (
-            <li
-              key={r.name}
-              className="rounded-xl bg-surface p-4 shadow-[var(--shadow-border)]"
-            >
-              <p className="text-base leading-relaxed">“{r.quote}”</p>
-              <p className="mt-2 text-sm text-muted">
-                {r.name} · {r.role}
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <Badge>{cat.label}</Badge>
+              <h1 className="font-display mt-2 text-3xl tracking-tight md:text-5xl">
+                {person.name}
+              </h1>
+              <p className="mt-1 text-muted md:text-base">
+                {person.role} · @{person.handle}
               </p>
-            </li>
-          ))}
-        </ul>
-      </section>
+            </div>
+            {person.available ? (
+              <Badge tone="live">Open</Badge>
+            ) : (
+              <Badge>Booked</Badge>
+            )}
+          </div>
 
-      {related.length > 0 && (
+          <p className="mt-3 inline-flex items-center gap-1.5 text-sm text-muted">
+            <MapPin className="size-3.5" strokeWidth={1.7} />
+            {person.city}, {person.country}
+          </p>
+
+          <div className="mt-5 grid grid-cols-2 gap-2 sm:flex sm:w-auto">
+            <Button
+              variant="outline"
+              onClick={() => toggle(person.id)}
+              className="w-full sm:w-auto sm:px-6"
+            >
+              <Bookmark className={cn("size-4", saved && "fill-fg")} />
+              {saved ? "Saved" : "Save"}
+            </Button>
+            <Button
+              className="w-full sm:w-auto sm:px-6"
+              onClick={() => setOpen(true)}
+              disabled={!person.available}
+            >
+              {briefed ? "Send another brief" : "Hire"}
+            </Button>
+          </div>
+        </div>
+
+        <p className="max-w-2xl text-base leading-relaxed text-fg/90">
+          {person.bio}
+        </p>
+
+        <dl className="grid grid-cols-3 gap-2 rounded-xl bg-surface p-4 shadow-[var(--shadow-border)] sm:max-w-md">
+          <div>
+            <dt className="text-xs tracking-wide text-muted">Rate</dt>
+            <dd className="mt-1 text-sm font-medium">{person.rate}</dd>
+          </div>
+          <div>
+            <dt className="text-xs tracking-wide text-muted">Years</dt>
+            <dd className="mt-1 text-sm font-medium tabular-nums">{person.years}</dd>
+          </div>
+          <div>
+            <dt className="text-xs tracking-wide text-muted">Rating</dt>
+            <dd className="mt-1 text-sm font-medium tabular-nums">
+              {person.rating} · {person.reviewCount}
+            </dd>
+          </div>
+        </dl>
+
         <section>
-          <h2 className="font-display text-xl tracking-tight">Same floor</h2>
-          <div className="mt-3 grid grid-cols-2 gap-3">
-            {related.map((t) => (
-              <TalentCard key={t.id} talent={t} />
+          <h2 className="font-display text-xl tracking-tight">Skills</h2>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {person.skills.map((s) => (
+              <Badge key={s}>{s}</Badge>
+            ))}
+          </div>
+          <p className="mt-3 text-sm text-muted">
+            Languages: {person.languages.join(", ")}
+          </p>
+          <p className="mt-1 text-sm text-muted">Looking for: {person.lookingFor}</p>
+        </section>
+
+        <section>
+          <h2 className="font-display text-xl tracking-tight">Selected work</h2>
+          <ul className="mt-3 divide-y divide-border">
+            {person.credits.map((c) => (
+              <li
+                key={c.title}
+                className="flex items-baseline justify-between gap-4 py-3"
+              >
+                <div>
+                  <p className="font-medium">{c.title}</p>
+                  <p className="text-sm text-muted">{c.note}</p>
+                </div>
+                <span className="text-sm tabular-nums text-subtle">{c.year}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section>
+          <h2 className="font-display text-xl tracking-tight">Notes from rooms</h2>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {person.reviews.map((r) => (
+              <div
+                key={r.name}
+                className="rounded-xl bg-surface p-4 shadow-[var(--shadow-border)]"
+              >
+                <p className="text-base leading-relaxed">“{r.quote}”</p>
+                <p className="mt-2 text-sm text-muted">
+                  {r.name} · {r.role}
+                </p>
+              </div>
             ))}
           </div>
         </section>
-      )}
+
+        {related.length > 0 && (
+          <section>
+            <h2 className="font-display text-xl tracking-tight">Same floor</h2>
+            <div className="mt-3 grid grid-cols-2 gap-3 lg:grid-cols-4">
+              {related.map((t) => (
+                <TalentCard key={t.id} talent={t} />
+              ))}
+            </div>
+          </section>
+        )}
+      </div>
 
       <Sheet open={open} onOpenChange={setOpen} title={`Brief ${person.name}`}>
         <div className="flex flex-col gap-3">

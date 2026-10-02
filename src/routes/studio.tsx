@@ -44,15 +44,17 @@ function Studio() {
   }
 
   return (
-    <div className="mx-auto flex max-w-2xl flex-col gap-6">
+    <div className="flex flex-col gap-6 md:gap-8">
       <header>
         <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted">
           Your room
         </p>
-        <h1 className="font-display mt-1 text-3xl tracking-tight">Studio</h1>
+        <h1 className="font-display mt-1 text-3xl tracking-tight md:text-4xl">
+          Studio
+        </h1>
       </header>
 
-      <div className="grid grid-cols-3 rounded-xl bg-surface p-1 shadow-[var(--shadow-border)]">
+      <div className="grid grid-cols-3 rounded-xl bg-surface p-1 shadow-[var(--shadow-border)] sm:inline-flex sm:w-fit">
         {(
           [
             ["profile", "Profile"],
@@ -65,7 +67,7 @@ function Studio() {
             type="button"
             onClick={() => setTab(id)}
             className={cn(
-              "h-10 rounded-lg text-sm font-medium transition-colors duration-150",
+              "h-10 rounded-lg text-sm font-medium transition-colors duration-150 sm:px-8",
               tab === id ? "bg-raised text-fg" : "text-muted",
             )}
           >
@@ -75,8 +77,8 @@ function Studio() {
       </div>
 
       {tab === "profile" && (
-        <div className="flex flex-col gap-5">
-          <div className="rounded-2xl bg-surface p-5 shadow-[var(--shadow-border)]">
+        <div className="flex flex-col gap-6 md:flex-row md:items-start md:gap-8">
+          <div className="rounded-2xl bg-surface p-6 shadow-[var(--shadow-border)] md:w-96 md:shrink-0">
             <div className="flex size-16 items-center justify-center rounded-xl bg-raised font-display text-2xl text-fg">
               {(profile.name || "You").slice(0, 1).toUpperCase()}
             </div>
@@ -103,7 +105,7 @@ function Studio() {
             </Button>
           </div>
 
-          <section>
+          <section className="flex-1">
             <h2 className="font-display text-xl tracking-tight">Crafts</h2>
             <p className="mt-1 text-sm text-muted">
               Shapes Discover. Tap to add or drop.
@@ -131,15 +133,15 @@ function Studio() {
       )}
 
       {tab === "saved" && (
-        <div className="flex flex-col gap-6">
-          <section>
+        <div className="flex flex-col gap-8 md:flex-row">
+          <section className="flex-1">
             <h2 className="font-display text-xl tracking-tight">Talent</h2>
             {talents.length === 0 ? (
               <p className="mt-3 text-sm text-muted">
                 No one saved yet. Bookmark people from their profile.
               </p>
             ) : (
-              <ul className="mt-2">
+              <ul className="mt-2 flex flex-col">
                 {talents.map((t) =>
                   t ? (
                     <li key={t.id}>
@@ -150,7 +152,7 @@ function Studio() {
               </ul>
             )}
           </section>
-          <section>
+          <section className="flex-1">
             <h2 className="font-display text-xl tracking-tight">Gigs</h2>
             {gigs.length === 0 ? (
               <p className="mt-3 text-sm text-muted">
@@ -166,8 +168,8 @@ function Studio() {
       )}
 
       {tab === "activity" && (
-        <div className="flex flex-col gap-6">
-          <section>
+        <div className="flex flex-col gap-8 md:flex-row">
+          <section className="flex-1">
             <h2 className="font-display text-xl tracking-tight">Applications</h2>
             {applications.length === 0 ? (
               <p className="mt-3 text-sm text-muted">
@@ -205,7 +207,7 @@ function Studio() {
               </ul>
             )}
           </section>
-          <section>
+          <section className="flex-1">
             <h2 className="font-display text-xl tracking-tight">Briefs sent</h2>
             {briefs.length === 0 ? (
               <p className="mt-3 text-sm text-muted">

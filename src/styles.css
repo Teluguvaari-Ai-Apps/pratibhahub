@@ -14,10 +14,8 @@
   --color-live: #b7c4b1;
   --color-live-fg: #0c0c0d;
 
-  --max-width-phone: 24.375rem;
-  --height-phone: 96dvh;
-  --max-height-phone: 52.75rem;
   --font-display: "Fraunces", ui-serif, Georgia, "Times New Roman", serif;
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
 
   --radius-xs: 0.25rem;
   --radius-sm: 0.5rem;
